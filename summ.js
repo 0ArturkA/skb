@@ -2,7 +2,7 @@ var express = require('express');
 var cors = require('cors');
 var app = express();
 
-app.use(cors())
+app.use(cors());
 
 app.get('/summ', (req, res) => {
     let { a, b } = req.query;
