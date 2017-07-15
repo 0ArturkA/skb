@@ -11,18 +11,18 @@ app.get('/summ', (req, res) => {
 
     if (!a && !b) {
         if (req.query.some)
-            return res.send(req.query.some);
+            return res.status(500).send(req.query.some);
 
-        return res.send('0');
+        return res.status(500).end('0');
     }
 
-    if (!a) return res.send(b);
+    if (!a) return res.status(200).send(b);
 
-    if (!b) return res.send(a);
+    if (!b) return res.status(200).send(a);
 
     let summ = ((+a) + (+b)).toString();
 
-    res.send(summ);
+    res.status(200).send(summ);
 });
 
 app.listen(80, () => console.log('CORS-enabled web server listening on port 80'));

@@ -9,7 +9,7 @@ app.get('/fio', (req, res) => {
 
     console.log(`New request - ${JSON.stringify(req.query)}`);
 
-    if (!fullname) return res.send('Invalid fullname');
+    if (!fullname) return res.status(500).send('Invalid fullname');
 
     // Removes all spaces at the beginning of the line
     fullname = fullname.replace(/^\s+/g, '');
@@ -21,20 +21,20 @@ app.get('/fio', (req, res) => {
     fullname = fullname.split(' ');
 
     // Validate fullname
-    if (/[0-9]|[!@#$%^&*()/|_\-+]/.test(fullname)) return res.send('Invalid fullname');
+    if (/[0-9]|[!@#$%^&*()/|_\-+]/.test(fullname)) return res.status(500).send('Invalid fullname');
 
-    if (!/[A-Z][a-z]|[А-Я][а-я]/.test(fullname)) return res.send('Invalid fullname');
+    if (!/[A-Z][a-z]|[А-Я][а-я]/.test(fullname)) return res.status(500).send('Invalid fullname');
 
-    if (!fullname.length) return res.send('Invalid fullname');
+    if (!fullname.length) return res.status(500).send('Invalid fullname');
 
-    if (fullname.length > 3) return res.send('Invalid fullname');
+    if (fullname.length > 3) return res.status(500).send('Invalid fullname');
 
     // Check fullname lenght values
     if (fullname.length == 1) {
         // Fix register
         fullname = fixRegister(fullname);
 
-        return res.send(fullname[0]);
+        return res.status(200).send(fullname[0]);
     }
 
     if (fullname.length == 2) {
@@ -44,7 +44,7 @@ app.get('/fio', (req, res) => {
         // Cut string to first latter
         let surname = fullname[0].slice(0, 1);
 
-        return res.send(`${fullname[1]} ${surname}.`);
+        return res.status(200).send(`${fullname[1]} ${surname}.`);
     }
 
     if (fullname.length == 3) {
@@ -55,10 +55,10 @@ app.get('/fio', (req, res) => {
         let surname = fullname[0].slice(0, 1);
         let patronymic = fullname[1].slice(0, 1);
 
-        return res.send(`${fullname[2]} ${surname}. ${patronymic}.`);
+        return res.status(200).send(`${fullname[2]} ${surname}. ${patronymic}.`);
     }
 
-    res.send('Unknown error');
+    res.status(500).send('Unknown error');
 });
 
 function fixRegister(fullname) {
