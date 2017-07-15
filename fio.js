@@ -17,12 +17,8 @@ app.get('/fio', (req, res) => {
     // Replace several consecutive spaces with one space
     fullname = fullname.replace(/\s\s+/g, ' ');
 
-    console.log(fullname);
-
     // Parse fullname
     fullname = fullname.split(' ');
-
-    console.log(fullname);
 
     // Validate fullname
     if (/[0-9]|[!@#$%^&*()/|_\-+]/.test(fullname)) return res.send('Invalid fullname');
