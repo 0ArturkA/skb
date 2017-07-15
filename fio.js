@@ -58,6 +58,8 @@ app.get('/fio', (req, res) => {
         return res.status(200).send(`${fullname[2]} ${surname}. ${patronymic}.`);
     }
 
+    console.log('Unknown error');
+
     res.status(500).send('Unknown error');
 });
 
